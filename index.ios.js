@@ -1,54 +1,15 @@
 /**
  * Sample React Native App
  * https://github.com/facebook/react-native
- * @flow
  */
-
-import React, { Component } from 'react';
-import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
-import Scan from 'react-native-qrscanner-kit';
-
-export default class sign extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions} onPress={}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
-      </View>
-    );
-  }
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
-
-AppRegistry.registerComponent('sign', () => sign);
+//const test=["./app-registry","./test/pushy","./test/showdown" ]
+//import "./app-registry"; //sign主体
+//import './QRView.js';
+import './app/root.js';
+//import "./test/pushy" //测试模块 react-native-pushy
+//import "./test/showdown" //测试模块 react-native-showdown
+//import "./test/md-textinput";//test react-native-md-textinput
+//import "./test/lazyload";真不容易啊
+//import "./test/pouchdb-test";
+//import "./test/device-id"
+//import "./test/image-fetch" //测试image 的uri source属性 和fetch json 中 array情况
