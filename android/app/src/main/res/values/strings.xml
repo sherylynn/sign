@@ -1,0 +1,4 @@
+<resources>
+    <string moduleConfig="true" name="reactNativeCodePush_androidDeploymentKey">K@04review</string>
+    <string name="app_name">sign</string>
+</resources>

@@ -1,0 +1,1 @@
+cd android && gradlew.bat assembleRelease && cd .. && adb install android/app/build/outputs/apk/app-release.apk
