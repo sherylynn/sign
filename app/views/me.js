@@ -59,7 +59,7 @@ export default class Me extends Component {
             user: {
                 username: '登录后可查询积分'
             },
-            Login: true,
+            Login: true,//nead to login is true
         };
     }
     async componentDidMount() {
