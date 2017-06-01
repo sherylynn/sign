@@ -32,9 +32,9 @@ let BANNER_IMGS = [
 
 import Resume from './me/resume';
 import Util from './util.js'
-var Service = require('./service.js');
+var Config = require('./utils/config.js');
 import PouchDB from 'pouchdb-react-native';
-const db_remote = new PouchDB(Service['host'] + '/db/users');
+const db_remote = new PouchDB(Config['host'] + '/db/users');
 const db_local = new PouchDB('me', { adapter: 'asyncstorage' })
 /*
 
@@ -65,7 +65,7 @@ export default class Me extends Component {
     async componentDidMount() {
         try {
             var doc = await db_local.get('user');
-            var path = Service.host + Service.loginByToken;
+            var path = Config.host + Config.loginByToken;
             var data = await Util.post_promise(path, { token: doc.token });
             if (data.status) {
                 console.log(data.data)

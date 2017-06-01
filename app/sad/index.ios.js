@@ -4,7 +4,7 @@ var About=require('./views/about');
 var Manager=require('./views/manager');
 var Message=require('./views/message');
 var Util=require('./views/util');
-var Service=require('./views/service');
+var Config=require('./views/utils/config');
 var {
   StyleSheet,
   View,
@@ -45,7 +45,7 @@ var Address=React.createClass({
         var that = this;
         AsyncStorage.getItem('token', function (err, token) {
             if (!err && token) {
-                var path = Service.host + Service.loginByToken;
+                var path = Config.host + Config.loginByToken;
                 Util.post(path, {token: token}, function (data) {
                     if (data.state) {
                         that.setState({
@@ -76,7 +76,7 @@ var Address=React.createClass({
                 });
             }
         });
-        var path = Service.host + Service.getMessave;
+        var path = Config.host + Config.getMessave;
         var that = this;
         Util.post(path, {
             key: Util.key
@@ -125,7 +125,7 @@ var Address=React.createClass({
     _login: function () {
         var email = this.state.email;
         var password = this.state.password;
-        var path = Service.host + Service.login;
+        var path = Config.host + Config.login;
         var that = this;
         that.setState({
             showLogin: {

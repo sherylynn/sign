@@ -17,7 +17,7 @@ import {
     View
 } from 'react-native';
 import Util from '../util.js';
-import Service from '../service.js';
+import Config from '../utils/config.js';
 export default class DiscoverDetail extends Component {
     constructor(props) {
         super(props);
@@ -57,7 +57,7 @@ export default class DiscoverDetail extends Component {
                 <WebView
                     automaticallyAdjustContentInsets={false}
                     style={styles.webView}
-                    source={{ uri: Service.host + discover.url }}
+                    source={{ uri: Config.host + discover.url }}
                     javaScriptEnabled={true}
                     domStorageEnabled={true}
                     scalesPageToFit={true}

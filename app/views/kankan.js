@@ -30,15 +30,15 @@ import DiscoverDetail from './discover/discover-detail';
 //import DiscoverData from './discover/discover-data';
 //import DiscoverData from "../test/testData";
 import Util from './util.js';
-import Service from './service.js';
+import Config from './utils/config.js';
 const ds = new ListView.DataSource({
     rowHasChanged: (r1, r2) => r1 !== r2
 });
 
 let BANNER_IMGS = [
-    Service.host + '/kankan/' + 'h001.jpg',
-    Service.host + '/kankan/' + 'h002.jpg',
-    Service.host + '/kankan/' + 'h003.jpg',
+    Config.host + '/kankan/' + 'h001.jpg',
+    Config.host + '/kankan/' + 'h002.jpg',
+    Config.host + '/kankan/' + 'h003.jpg',
 ];
 /*
 var BANNER_IMGS = [
@@ -83,14 +83,14 @@ export default class Kankan extends Component {
                 navigator
             } = this.props;
             console.log(navigator);
-            let path = Service.host + Service.getkankanList;
+            let path = Config.host + Config.getkankanList;
             let data = await Util.get_json(path);
             if (data.status) {
                 console.log(data.data)
                     //console.log(data.data.img)
 
                 function img_source(srcList) {
-                    return Service.host + srcList.img;
+                    return Config.host + srcList.img;
                 }
                 console.log(data.data.map(img_source));
                 this.setState({

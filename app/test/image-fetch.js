@@ -12,7 +12,7 @@ import {
     StyleSheet,
     Alert
 } from 'react-native';import Util from './../views/util.js';
-import Service from './../views/service.js';
+import Config from './../views/utils/config.js';
 
 
 class Example extends Component {
@@ -24,12 +24,12 @@ class Example extends Component {
     }
     async componentWillMount() {
         try {
-            let path = Service.host + Service.getkankanList;
+            let path = Config.host + Config.getkankanList;
             let data = await Util.get_json(path);
             if (data.status) {
                 console.log(data.data)
                 function img_source(srcList) {
-                    return Service.host + srcList.img;
+                    return Config.host + srcList.img;
                 }
                 console.log(data.data.map(img_source));
                 this.setState({

@@ -22,11 +22,11 @@ import {
 var DeviceInfo = require('react-native-device-info');
 import ViewPager from 'react-native-viewpager';
 import Util from '../util.js'
-var Service = require('../service.js');
+var Config = require('../utils/config.js');
 import PouchDB from 'pouchdb-react-native'
 //import PouchDB from 'pouchdb'
 //import 'pouchdb-asyncstorage-down'
-const db_remote = new PouchDB(Service['host'] + '/db/users');
+const db_remote = new PouchDB(Config['host'] + '/db/users');
 const db_local = new PouchDB('me', { adapter: 'asyncstorage' })
 export default class Resume extends Component {
     constructor(props) {
@@ -60,7 +60,7 @@ export default class Resume extends Component {
         let db_local = new PouchDB('me', { adapter: 'asyncstorage' })
         var email = this.state.email;
         var password = this.state.password;
-        var path = Service.host + Service.login;
+        var path = Config.host + Config.login;
 
         var data = await Util.post_promise(path, {
             email: email,
@@ -120,7 +120,7 @@ export default class Resume extends Component {
         let email = this.state.email;
         let password = this.state.password;
         let re_password = this.state.re_password;
-        let path = Service.host + Service.createUser;
+        let path = Config.host + Config.createUser;
 
         var data = await Util.post_promise(path, {
             username: username,

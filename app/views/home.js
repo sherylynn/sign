@@ -11,6 +11,7 @@ import {
     ListView,
     Image,
     Text,
+    RefreshControl,
     TextInput,
     Alert,
     View,
@@ -26,18 +27,21 @@ import {
 import JobCell from './home/job-cell';
 import JobDetail from './home/job-detail';
 //import JobData from './me/NormalData';
-import JobData from './me/sign_message';
+//import JobData from './me/sign_message';
+//let JobData=[]//用this.state管理
 import Top15 from './me/sign';
 import QRCodeScreen from './QRCodeScreen.js';
 
+/*
 const Data = {
     "成分": JobData,
     "产品": Top15,
     "功能": JobData
-}
+}*/
 //从服务器获取信息
 import Util from './util';
-import Service from './service.js';
+import Config from './utils/config.js';
+import { create, remove, update, query } from './services/sign_actis'
 const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
 const activeButtonStyle = {
     backgroundColor: '#ddd'
@@ -80,11 +84,40 @@ export default class Home extends Component {
         this.state = {
             keyword: "",
             keywordType: "主题",
-            number: 0
+            number: 0,
+            isRefreshing:false,
+            JobData:[]
             //dataSource: ds.cloneWithRows(JobData),
         };
+    } 
+    async componentWillMount() {
+        await this._refresh()
     }
+    async _refresh(){
+        try {
+            //var doc = await db_local.get('user');
+            //var path = Config.host + Config.sign_actis;
+            console.log('预加载home')
+            //var data = await Util.post_promise(path, { token: doc.token });
+            var data= await query({})
+            if (data.success) {
+                console.log(data.data)
 
+                this.setState({
+                    keyword: "",
+                    keywordType: "主题",
+                    number: 0,
+                    isRefreshing: false,
+                    JobData:data.data
+                    //dataSource: ds.cloneWithRows(JobData),
+                })
+            } else {
+                console.log()
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    }
     _selectJob(job: Object) {
         let {navigator} = this.props;
         if (navigator) {
@@ -95,7 +128,6 @@ export default class Home extends Component {
             });
         }
     }
-
     _scanQR() {
         let {navigator} = this.props;
         if (navigator) {
@@ -141,27 +173,31 @@ export default class Home extends Component {
                 </View>
             </View>
         )
-    };
-
+    }
+    async _onRefresh() {
+        this.setState({isRefreshing: true})
+        await this._refresh();
+    }
     render() {
+        console.log('渲染'+this.state.JobData)
         const filterText = this.state.keyword || '';
         const filterRegex = new RegExp(String(filterText), 'i');
         let filter, filterResult;
         switch (this.state.keywordType) {
             case "主题":
                 filter = (example) => filterRegex.test(example["主题"]);
-                this.state.number = JobData.filter(filter).length;
-                filterResult = JobData.filter(filter);
+                this.state.number = this.state.JobData.filter(filter).length;
+                filterResult = this.state.JobData.filter(filter);
                 break;
             case "时间":
                 filter = (example) => filterRegex.test(example["时间"]);
-                this.state.number = Top15.filter(filter).length;
-                filterResult = Top15.filter(filter);
+                this.state.number = this.state.JobData.filter(filter).length;
+                filterResult = this.state.JobData.filter(filter);
                 break;
             case "内容":
                 filter = (example) => filterRegex.test(example["内容"]);
-                this.state.number = JobData.filter(filter).length;
-                filterResult = JobData.filter(filter);
+                this.state.number = this.state.JobData.filter(filter).length;
+                filterResult = this.state.JobData.filter(filter);
                 break;
             default:
                 break;
@@ -177,7 +213,20 @@ export default class Home extends Component {
             dataSource={dataSource}
             initialListSize={11}
             renderRow={this._renderRow}
-            renderHeader={this._listHeader}/>;
+            renderHeader={this._listHeader}
+            
+            refreshControl={
+                <RefreshControl
+                    refreshing={this.state.isRefreshing}
+                    onRefresh={()=>this._onRefresh()}
+                    tintColor="#ff0000"
+                    title="Loading..."
+                    titleColor="#00ff00"
+                    colors={['#ff0000', '#00ff00', '#0000ff']}
+                    progressBackgroundColor="#ffff00"
+                />
+            }
+            />;
         //onFocus={() => { global._scrollView && global._scrollView.scrollTo({ y: 0 }); } } lazyload中没有这个方法
         return (
             <View style={styles.container}>

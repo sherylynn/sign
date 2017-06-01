@@ -19,7 +19,7 @@ import {
     LazyloadView,
     LazyloadImage
 } from 'react-native-lazyload';
-import Service from '../service.js';
+import Config from '../utils/config.js';
 export default class DiscoverCell extends Component {
     constructor(props) {
         super(props);
@@ -44,7 +44,7 @@ export default class DiscoverCell extends Component {
             </View>
         } else {
             cellView = <View style={{ padding: 10, flexDirection: 'row' }}>
-                <Image style={styles.thumb} source={{ uri: Service.host + discoverData.img }}/>
+                <Image style={styles.thumb} source={{ uri: Config.host + discoverData.img }}/>
                 <View style={{ paddingLeft: 10, flex: 1 }}>
                     <View style={{ flexDirection: 'row' }}>
                         <Text style={styles.discoverTitle}>{discoverData.title}</Text>
