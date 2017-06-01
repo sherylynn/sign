@@ -68,6 +68,7 @@ export default class Me extends Component {
             var path = Config.host + Config.loginByToken;
             var data = await Util.post_promise(path, { token: doc.token });
             if (data.status) {
+                console.log('使用token登陆')
                 console.log(data.data)
                 this.setState({
                     Login: false,
@@ -164,6 +165,7 @@ export default class Me extends Component {
         let _this = this;
         const {navigator} = this.props;
         if (navigator) {
+          console.log(_this.state.user.qrcode)
             navigator.push({
                 name: 'Resume',
                 component: Resume,

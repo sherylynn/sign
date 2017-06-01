@@ -65,8 +65,8 @@ export default class JobDetail extends Component {
   async _barCode(bool) {
     try {
       let db_local = new PouchDB('me', {adapter: 'asyncstorage'})
-      let doc = await db_local.put({_id:'barCodeFlag',success: bool});
-      
+      let doc = await db_local.put({_id: 'barCodeFlag', success: bool});
+
     } catch (err) {
       console.log(err)
       let db_local = new PouchDB('me', {adapter: 'asyncstorage'})
@@ -88,29 +88,50 @@ export default class JobDetail extends Component {
         params: {
           cancelButtonVisible: true,
           cancelButtonTitle: '取消',
-          onSucess: async (result) => {
-            //this._barCode(false)
-            //试过react-native自带数据库试过传递state都不行
-            //开关控制不扫
-            let checkData= await this._checkAdmin()
+          onSucess: async(result) => {
+            //this._barCode(false) 试过react-native自带数据库试过传递state都不行 开关控制不扫
+            let checkData = await this._checkAdmin()
             if (result.split("#")[1] == "user") {
-              if (checkData.success) {//是管理员
-                let data = await update({data:acti_data,qrcode:result})
+              if (checkData.success) { //是管理员
+                let data = await update({data: acti_data, qrcode: result})
                 if (data.success) {
                   console.log(data.data) //返回的data.data应该为用户
-                  Alert.alert('成功签到：', data.data.username,)
+                  Alert.alert('成功签到：', data.data.username, [
+                    {
+                      text: 'OK',
+                      onPress: () => this._pressButton()
+                    }
+                  ], {cancelable: false})
                 } else {
-                  Alert.alert('抱歉：', data.message,)//比如已经签到或者不存在用户
+                  Alert.alert('抱歉：', data.message, [
+                    {
+                      text: 'OK',
+                      onPress: () => this._pressButton()
+                    }
+                  ], {cancelable: false}) //比如已经签到或者不存在用户
                 }
               } else {
-                Alert.alert('抱歉：', checkData.message,)
+                Alert.alert('抱歉：', checkData.message, [
+                  {
+                    text: 'OK',
+                    onPress: () => this._pressButton()
+                  }
+                ], {cancelable: false})
               }
             } else {
-              Alert.alert('非用户二维码、内容：', result,)
+              Alert.alert('非用户二维码、内容：', result, [
+                {
+                  text: 'OK',
+                  onPress: () => this._pressButton()
+                }
+              ], {cancelable: false})
             } //0 是"" 1是"user" 2是 id
           },
           onCancel: (result) => {
-            Alert.alert('Alert Title', result,)
+            Alert.alert('Alert Title', result, {
+              text: 'OK',
+              onPress: () => this._pressButton
+            },)
           }
         }
       });
