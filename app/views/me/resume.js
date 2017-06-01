@@ -71,7 +71,7 @@ export default class Resume extends Component {
             var user = data.data;
             //加入数据到本地
             try {
-                var response = db_local.put({
+                var response =await db_local.put({
                     _id: 'user',
                     'username': user.username,
                     'token': user.token,

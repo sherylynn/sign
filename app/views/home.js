@@ -179,7 +179,7 @@ export default class Home extends Component {
         await this._refresh();
     }
     render() {
-        console.log('渲染'+this.state.JobData)
+        //console.log('渲染'+this.state.JobData)
         const filterText = this.state.keyword || '';
         const filterRegex = new RegExp(String(filterText), 'i');
         let filter, filterResult;
@@ -219,10 +219,10 @@ export default class Home extends Component {
                 <RefreshControl
                     refreshing={this.state.isRefreshing}
                     onRefresh={()=>this._onRefresh()}
-                    tintColor="#ff0000"
+                    tintColor="#3ed2a6"
                     title="Loading..."
                     titleColor="#00ff00"
-                    colors={['#ff0000', '#00ff00', '#0000ff']}
+                    colors={['#57ca88', '#00ff00', '#0000ff']}
                     progressBackgroundColor="#ffff00"
                 />
             }
