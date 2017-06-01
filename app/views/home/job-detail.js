@@ -62,9 +62,24 @@ export default class JobDetail extends Component {
       return {success: false, message: '检查是否登录'}
     }
   }
+  async _barCode(bool) {
+    try {
+      let db_local = new PouchDB('me', {adapter: 'asyncstorage'})
+      let doc = await db_local.put({_id:'barCodeFlag',success: bool});
+      
+    } catch (err) {
+      console.log(err)
+      let db_local = new PouchDB('me', {adapter: 'asyncstorage'})
+      let doc = await db_local.get('barCodeFlag');
+      let doc_new = await db_local.put({
+        ...doc,
+        success: bool
+      })
+    }
+  }
   async _scanQR() {
     let {navigator} = this.props;
-    let {acti_data} = this.props;
+    let acti_data = this.props.job;
 
     if (navigator) {
       navigator.push({
@@ -73,18 +88,22 @@ export default class JobDetail extends Component {
         params: {
           cancelButtonVisible: true,
           cancelButtonTitle: '取消',
-          onSucess: (result) => {
+          onSucess: async (result) => {
+            //this._barCode(false)
+            //试过react-native自带数据库试过传递state都不行
+            //开关控制不扫
+            let checkData= await this._checkAdmin()
             if (result.split("#")[1] == "user") {
-              if (this._checkAdmin().success) {//是管理员
-                var data = await update(acti_data)
+              if (checkData.success) {//是管理员
+                let data = await update({data:acti_data,qrcode:result})
                 if (data.success) {
                   console.log(data.data) //返回的data.data应该为用户
-                  Alert.alert('成功签到：', data.data['姓名'],)
+                  Alert.alert('成功签到：', data.data.username,)
                 } else {
                   Alert.alert('抱歉：', data.message,)//比如已经签到或者不存在用户
                 }
               } else {
-                Alert.alert('抱歉：', this._checkAdmin().message,)
+                Alert.alert('抱歉：', checkData.message,)
               }
             } else {
               Alert.alert('非用户二维码、内容：', result,)
@@ -97,15 +116,6 @@ export default class JobDetail extends Component {
       });
     }
   }
-  _onPressCancel() {
-    const {navigator} = this.props;
-    const routers = navigator.getCurrentRoutes();
-    if (routers.length > 1) {
-      navigator.pop();
-      return true;
-    }
-    return false;
-  };
   render() {
     let {job} = this.props;
     var cancelButton = null;

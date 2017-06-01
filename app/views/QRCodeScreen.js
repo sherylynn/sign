@@ -55,13 +55,13 @@ export default class QRCodeScreen extends Component {
     var $this = this;
 
     if (this.barCodeFlag) {
-      this.barCodeFlag = false;
+      this.barCodeFlag = true;
 
       setTimeout(function() {
         Vibration.vibrate();
         //$this.props.navigator.pop();
         $this.props.onSucess(result.data);
-      }, 1000);
+      }, 500);
     }
   }
 
