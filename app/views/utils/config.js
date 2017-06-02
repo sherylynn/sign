@@ -2,7 +2,7 @@ var Config = {
   //host: 'http://mh.kenx.cn:3000',
   //host:'http://10.0.2.2:3000',//苹果的地址不一定相同,不能使用10.0.2.2:3000
   //host:'http://192.168.0.249:3000',
-  host:'http://192.168.0.249:3000',
+  host:'http://a3.18e.pub:3000',
   login: '/user/login',
   sign_actis:'/api/sign_actis',
   users:'/api/users',
