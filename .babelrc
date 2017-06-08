@@ -1,6 +1,7 @@
 {
   "presets": [
-    "react-native" // this is required for debugging with react-native/packager/transformer
+    "react-native", // this is required for debugging with react-native/packager/transformer
+    "react-native-stage-0"
   ],
   "plugins": [],
   "sourceMaps": true // must be true react-native/packager/transformer using with node-module-debug

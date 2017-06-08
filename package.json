@@ -7,11 +7,12 @@
     "test": "jest"
   },
   "dependencies": {
+    "babel-preset-react-native-stage-0": "^1.0.1",
     "pouchdb-react-native": "^6.1.25",
     "react": "~15.4.0",
     "react-native": "0.41.2",
     "react-native-camera": "^0.6.0",
-    "react-native-code-push": "^1.17.0-beta",
+    "react-native-code-push": "^2.1.0-beta",
     "react-native-device-info": "^0.9.9",
     "react-native-lazyload": "^1.1.0",
     "react-native-showdown": "^0.3.0",
