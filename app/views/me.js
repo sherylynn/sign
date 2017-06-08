@@ -22,7 +22,7 @@ import {
 } from 'react-native';
 
 import ViewPager from 'react-native-viewpager';
-
+import CodePush from 'react-native-code-push';
 let BANNER_IMGS = [
     require('../images/job1.jpg'),
     require('../images/job2.jpg'),
@@ -102,6 +102,27 @@ export default class Me extends Component {
         */
     };
     checkUpdate = () => {
+        CodePush.checkForUpdate(Config.dev? Config.Production_k:Config.Staging_k,).then((update)=>{
+            if(!update){
+                Alert.alert("提示","已是最新版本--",[
+                    {text:"Ok", onPress:()=>{
+                        console.log("点了OK");
+                    }}
+                ]);
+            }
+            else{
+                CodePush.sync({
+                    deploymentKey: Config.dev? Config.Production_k:Config.Staging_k,
+                    updateDialog: {
+                        optionalIgnoreButtonLabel: '稍后',
+                        optionalInstallButtonLabel: '后台更新',
+                        optionalUpdateMessage: '有新版本了，是否更新？',
+                        title: '更新提示'
+                    },
+                    installMode: CodePush.InstallMode.IMMEDIATE
+                });
+            }
+        });
         /*
         checkUpdate(appKey).then(info => {
             if (info.expired) {

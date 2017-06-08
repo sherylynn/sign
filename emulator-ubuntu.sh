@@ -1,0 +1,1 @@
+~/Android/Sdk/tools/emulator -avd meihu -use-system-libs

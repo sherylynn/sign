@@ -8,7 +8,6 @@ import {
 import SplashScreen from './splash';
 import codePush from 'react-native-code-push';
 class sign extends Component {
-    /*
     codePushStatusDidChange(status) {
         switch(status) {
             case codePush.SyncStatus.CHECKING_FOR_UPDATE:
@@ -31,7 +30,6 @@ class sign extends Component {
     codePushDownloadDidProgress(progress) {
         console.log(progress.receivedBytes + " of " + progress.totalBytes + " received.");
     }
-    */
     render() {
         var defaultName = 'Splash';
         var defaultComponent = SplashScreen;

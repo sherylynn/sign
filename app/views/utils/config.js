@@ -17,6 +17,9 @@ var Config = {
   addMakeup: '/makeup/add',
   updatePassword: '/user/password/update',
   deleteUser: '/user/delete',
+  dev:true,
+  Production_k:'wEerHBCE50XBhWPoYRF-VukzWv6eVJBn00G_z',
+  Staging_k:'d0dXFLQBN9WGr4yOEUp4FXBH85PhVJBn00G_z',
   db: '/db/users'
 };
 
