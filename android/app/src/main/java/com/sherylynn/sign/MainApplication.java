@@ -1,4 +1,4 @@
-package com.sign;
+package com.sherylynn.sign;
 
 import android.app.Application;
 import android.util.Log;

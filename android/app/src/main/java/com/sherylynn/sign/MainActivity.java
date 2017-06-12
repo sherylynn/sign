@@ -1,4 +1,4 @@
-package com.sign;
+package com.sherylynn.sign;
 
 import com.facebook.react.ReactActivity;
 

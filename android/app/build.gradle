@@ -88,7 +88,7 @@ android {
     buildToolsVersion '25.0.0'
 
     defaultConfig {
-        applicationId "com.sign"
+        applicationId "com.sherylynn.sign"
         minSdkVersion 16
         targetSdkVersion 22
         versionCode 1
